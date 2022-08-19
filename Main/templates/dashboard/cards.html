@@ -1,0 +1,162 @@
+<div class="row">
+  <div class="col-12 col-sm-6 col-xl-3 mb-4">
+    <div class="card border-0 shadow">
+      <div class="card-body">
+        <div class="row d-block d-xl-flex align-items-center">
+          <div class="col-12 col-xl-5 text-xl-center mb-3 mb-xl-0 d-flex align-items-center justify-content-xl-center">
+            <div class="icon-shape icon-shape-primary rounded me-4 me-sm-0">
+<!--              <svg class="icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">-->
+<!--                <path-->
+<!--                  d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"-->
+<!--                ></path>-->
+<!--              </svg>-->
+
+            </div>
+            <div class="d-sm-none">
+              <h2 class="h5">Chicken Remaining</h2>
+              <h3 class="fw-extrabold mb-1">{{ cards | sum(attribute='remaining') }}</h3>
+            </div>
+          </div>
+          <div class="col-12 col-xl-7 px-xl-0">
+            <div class="d-none d-sm-block">
+              <h2 class="h6 text-gray-400 mb-0">Chicken Remaining</h2>
+              <h3 class="fw-extrabold mb-2">{{ cards | sum(attribute='remaining') }}</h3>
+            </div>
+            <small class="d-flex align-items-center text-gray-500">total death {{ cards | sum(attribute='deaths_num') }} </small>
+            {% set total = cards | sum(attribute='chicken_added') %}
+            {% set remain = cards | sum(attribute='remaining') %}
+
+
+            <div class="small d-flex mt-1">
+              <div>
+                Percent remaining
+<!--                <svg class="icon icon-xs text-success" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">-->
+<!--                  <path fill-rule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clip-rule="evenodd"></path></svg>-->
+                  <span class="text-success fw-bolder">{{ '{:.1%}'.format((remain / total))  }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 col-sm-6 col-xl-3 mb-4">
+    <div class="card border-0 shadow">
+      <div class="card-body">
+        <div class="row d-block d-xl-flex align-items-center">
+          <div class="col-12 col-xl-5 text-xl-center mb-3 mb-xl-0 d-flex align-items-center justify-content-xl-center">
+            <div class="icon-shape icon-shape-secondary rounded me-4 me-sm-0">
+              <svg class="icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  fill-rule="evenodd"
+                  d="M10 2a4 4 0 00-4 4v1H5a1 1 0 00-.994.89l-1 9A1 1 0 004 18h12a1 1 0 00.994-1.11l-1-9A1 1 0 0015 7h-1V6a4 4 0 00-4-4zm2 5V6a2 2 0 10-4 0v1h4zm-6 3a1 1 0 112 0 1 1 0 01-2 0zm7-1a1 1 0 100 2 1 1 0 000-2z"
+                  clip-rule="evenodd"
+                ></path>
+              </svg>
+            </div>
+            <div class="d-sm-none">
+              <h2 class="fw-extrabold h5">Bags Remaining</h2>
+              <h3 class="mb-1">{{ cards | sum(attribute='bags_remaining') }}</h3>
+            </div>
+          </div>
+          <div class="col-12 col-xl-7 px-xl-0">
+            <div class="d-none d-sm-block">
+              <h2 class="h6 text-gray-400 mb-0">Bags Remaining</h2>
+              <h3 class="fw-extrabold mb-2">{{ cards | sum(attribute='bags_remaining') }}</h3>
+            </div>
+            <small class="d-flex align-items-center text-gray-500">Consumed {{ cards | sum(attribute='bags_consumed') }}</small>
+            {% set total = cards | sum(attribute='bags_added') %}
+            {% set bags_remaining = cards | sum(attribute='bags_remaining') %}
+            {% set percent = '{:.1%}'.format((bags_remaining / total))  %}
+
+            <div class="small d-flex mt-1">
+              <div>
+                Percent remaining
+<!--                <svg class="icon icon-xs text-danger" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">-->
+<!--                  <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>-->
+<!--                {% set bags_remaining = cards | sum(attribute='bags_remaining') %}  -->
+                {% if percent.strip('%')|int > 25 %}
+                <span class="text-success fw-bolder">{{ '{:.1%}'.format((bags_remaining / total))  }}</span>
+                {% else %}
+                <span class="text-danger fw-bolder">{{ '{:.1%}'.format((bags_remaining / total))  }}</span>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 col-sm-6 col-xl-3 mb-4">
+    <div class="card border-0 shadow">
+      <div class="card-body">
+        <div class="row d-block d-xl-flex align-items-center">
+          <div class="col-12 col-xl-5 text-xl-center mb-3 mb-xl-0 d-flex align-items-center justify-content-xl-center">
+            <div class="icon-shape icon-shape-tertiary rounded me-4 me-sm-0">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-2-square-fill" viewBox="0 0 16 16">
+                <path
+                  d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2Zm4.646 6.24v.07H5.375v-.064c0-1.213.879-2.402 2.637-2.402 1.582 0 2.613.949 2.613 2.215 0 1.002-.6 1.667-1.287 2.43l-.096.107-1.974 2.22v.077h3.498V12H5.422v-.832l2.97-3.293c.434-.475.903-1.008.903-1.705 0-.744-.557-1.236-1.313-1.236-.843 0-1.336.615-1.336 1.306Z"
+                />
+              </svg>
+            </div>
+            <div class="d-sm-none">
+              <h2 class="fw-extrabold h5">Debit</h2>
+              <h3 class="mb-1">{{ finances[0].debit_sum }}</h3>
+            </div>
+          </div>
+          <div class="col-12 col-xl-7 px-xl-0">
+            <div class="d-none d-sm-block">
+              <h2 class="h6 text-gray-400 mb-0">Debit</h2>
+              <h3 class="fw-extrabold mb-2">{{ finances[0].debit_sum }}</h3>
+            </div>
+            <small class="text-gray-500"> space for data ... </small>
+            <div class="small d-flex mt-1">
+              <div>
+                Since last month
+                <svg class="icon icon-xs text-success" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clip-rule="evenodd"></path></svg>
+                  <span class="text-success fw-bolder">4%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 col-sm-6 col-xl-3 mb-4">
+    <div class="card border-0 shadow">
+      <div class="card-body">
+        <div class="row d-block d-xl-flex align-items-center">
+          <div class="col-12 col-xl-5 text-xl-center mb-3 mb-xl-0 d-flex align-items-center justify-content-xl-center">
+            <div class="icon-shape icon-shape-tertiary rounded me-4 me-sm-0">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-2-square-fill" viewBox="0 0 16 16">
+                <path
+                  d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2Zm4.646 6.24v.07H5.375v-.064c0-1.213.879-2.402 2.637-2.402 1.582 0 2.613.949 2.613 2.215 0 1.002-.6 1.667-1.287 2.43l-.096.107-1.974 2.22v.077h3.498V12H5.422v-.832l2.97-3.293c.434-.475.903-1.008.903-1.705 0-.744-.557-1.236-1.313-1.236-.843 0-1.336.615-1.336 1.306Z"
+                />
+              </svg>
+            </div>
+            <div class="d-sm-none">
+              <h2 class="fw-extrabold h5">credit</h2>
+              <h3 class="mb-1">{{ finances[0].credit_sum }}</h3>
+            </div>
+          </div>
+          <div class="col-12 col-xl-7 px-xl-0">
+            <div class="d-none d-sm-block">
+              <h2 class="h6 text-gray-400 mb-0">credit</h2>
+              <h3 class="fw-extrabold mb-2">{{ finances[0].credit_sum }}</h3>
+            </div>
+            <small class="text-gray-500"> space for data ... </small>
+            <div class="small d-flex mt-1">
+              <div>
+                Since last month
+                <svg class="icon icon-xs text-success" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clip-rule="evenodd"></path></svg>
+                  <span class="text-success fw-bolder">4%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
